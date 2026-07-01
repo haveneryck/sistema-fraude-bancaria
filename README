@@ -1,0 +1,31 @@
+🔍 Sistema de Detecção de Fraude Bancária
+Sistema inteligente de detecção de fraude em transações bancárias utilizando Machine Learning com Spring Boot e Weka.
+🚀 Tecnologias
+
+Java 22
+Spring Boot
+Weka 3.8.6
+Algoritmo J48 (Árvore de Decisão)
+Maven
+
+📋 Sobre o Projeto
+O sistema treina um modelo de Machine Learning com dados de transações bancárias e classifica novas transações como fraude ou não fraude com base em padrões aprendidos.
+Funcionalidades
+
+Treinamento de modelo com dados de transações históricas
+Classificação de novas transações em tempo real
+Arquitetura com responsabilidade única: lógica de ML isolada da camada Spring Boot
+
+🏗️ Arquitetura
+com.haveneryck.sistemafraudebancaria
+├── SistemaFraudeBancariaApplication.java   # Classe principal (Spring Boot)
+└── DeteccaoDeFraudeBancaria.java           # Lógica de Machine Learning (Weka)
+▶️ Como Executar
+bash# Clone o repositório
+git clone git@github.com:haveneryck/sistema-fraude-bancaria.git
+
+# Execute com Maven
+./mvnw spring-boot:run
+👨‍💻 Autor
+Vinícius Oliveira Brito
+[LinkedIn](https://linkedin.com/in/haveneryck) • [GitHub](https://github.com/haveneryck)

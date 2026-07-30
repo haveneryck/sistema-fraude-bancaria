@@ -14,15 +14,26 @@ import weka.core.Instances; // Representa o conjunto de dados (Como uma planilha
 import java.util.logging.Level; // Controla o nível de importancia dos avidos exibidos
 import java.util.logging.Logger; // Usado para configurar o sistema do logs do Java
 import java.util.ArrayList;
+import java.util.List;
 
+import com.haveneryck.sistemafraudebancaria.model.Transacao;
+import com.haveneryck.sistemafraudebancaria.repository.TransacaoRepository;
+import org.springframework.stereotype.Component;
+
+@Component
 public class DeteccaoDeFraudeBancaria {
-    private Classifier classificador; // Modelo de Classificação utilizado
-    private Instances dadosTreinamento; // Conjunto de dados usado para treinar o modelo
 
-    // Atributos do nosso conjunto de dados
+    private final TransacaoRepository transacaoRepository;
+    private Classifier classificador;
+    private Instances dadosTreinamento;
     private Attribute atributoValor;
     private Attribute atributoOrigem;
     private Attribute atributoFraude;
+
+    public DeteccaoDeFraudeBancaria(TransacaoRepository transacaoRepository) {
+        this.transacaoRepository = transacaoRepository;
+    }
+
 
     // ETAPA 2: DEFINIÇÃO DOS ATRIBUTOS (colunas da "planilha")
     public void definirAtributos() {
@@ -73,25 +84,12 @@ public class DeteccaoDeFraudeBancaria {
     }
 
     public void adicionarExemplos() {
-        // Exemplos de transacoes FRAUDULENTAS (Valores altos + origem internacional)
-        adicionarTransacao(5000, "internacional", "sim");
-        adicionarTransacao(10000, "internacional", "sim");
-        adicionarTransacao(7500, "internacional", "sim");
-        adicionarTransacao(8000, "internacional", "sim");
+        List<Transacao> transacoes = transacaoRepository.findAll();
 
-        // Exemplos de transações NORMAIS (valores baixos + origem nacional)
-        adicionarTransacao(200, "nacional", "nao");
-        adicionarTransacao(150, "nacional", "nao");
-        adicionarTransacao(300, "nacional", "nao");
-        adicionarTransacao(400, "nacional", "nao");
-
-        // Exemplos adicionais:
-        // Transações com valos médios/altos em território nacional
-        //pode ser usado para demonstrar variação ou desafiar o modelo:
-
-        adicionarTransacao(1000, "nacional", "sim");
-        adicionarTransacao(1500, "nacional", "sim");
-        adicionarTransacao(20000, "nacional", "sim");
+        for (Transacao t : transacoes) {
+            adicionarTransacao(t.getValor(), t.getOrigem(), t.getFraude());
+        }
+        System.out.println("Quantidade: " + dadosTreinamento.numInstances());
     }
 
     // ESTAPA 5: TREINAMENTO DO MODELO

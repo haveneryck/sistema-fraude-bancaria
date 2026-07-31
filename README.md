@@ -56,6 +56,13 @@ A senha do banco de dados **não é armazenada no código-fonte**. Ela é lida v
 ```properties
 spring.datasource.password=${DB_PASSWORD}
 ```
+### Dados persistidos no PostgreSQL
+
+![Tabela transacao no pgAdmin](screenshots/Tabela_pgadmim.jpeg)
+
+### Execução com dados vindos do banco
+
+![Terminal do IntelliJ](screenshots/Terminal_Intellij.jpeg)
 
 ## ⚙️ Como Executar
 
